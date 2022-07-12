@@ -1,64 +1,56 @@
 import React, { FC, ChangeEvent, useState } from "react";
 import "./App.css";
+import { Input } from "antd";
+import { Button } from "antd";
 import { ITask } from "./Interfaces";
 import TodoTask from "./Components/TodoTask";
 
 const App: FC = () => {
   const [task, setTask] = useState<string>("");
-  const [deadline, setDealine] = useState<number>(0);
+  const [date, setDate] = useState<string>("");
   const [todoList, setTodoList] = useState<ITask[]>([]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.name === "task") {
       setTask(event.target.value);
     } else {
-      setDealine(Number(event.target.value));
+      setDate(event.target.value);
     }
   };
-
   const addTask = (): void => {
-    const newTask = { taskName: task, deadline: deadline };
+    const newTask = { taskName: task, date: date };
     setTodoList([...todoList, newTask]);
     setTask("");
-    setDealine(0);
+    setDate("");
   };
-  const completeTask = (taskNameToDelete: string): void => {
-    setTodoList(
-      todoList.filter((task) => {
-        return task.taskName != taskNameToDelete;
-      })
-    );
-  };
-
   return (
     <div className="App">
       <div className="header">
-        <div className="inputContainer">
-          <input
-            type="text"
-            placeholder="Task..."
-            name="task"
-            value={task}
-            onChange={handleChange}
-          />
-
-          <input
-            type="date"
-            placeholder="Deadline (in Days)..."
-            name="deadline"
-            value={deadline}
-            onChange={handleChange}
-          />
-        </div>
-        <button onClick={addTask}>Add Task</button>
+        <Input
+          type="text"
+          placeholder="Basic usage"
+          name="task"
+          value={task}
+          onChange={handleChange}
+        />
+        <Input
+          type="date"
+          placeholder="Basic usage"
+          name="date"
+          value={date}
+          onChange={handleChange}
+        />
+        <Button onClick={addTask} type="primary" block>
+          {" "}
+          Primary{" "}
+        </Button>
       </div>
       <div className="todoList">
-        {todoList.map((task: ITask, key: number) => {
-          return <TodoTask key={key} task={task} completeTask={completeTask} />;
-        })}
+       {todoList.map((task: ITask, key: number) => {
+        return <TodoTask key={key} task={task} />;
+      })}
       </div>
     </div>
   );
 };
-
 export default App;
