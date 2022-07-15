@@ -131,7 +131,7 @@ const App: FC = () => {
         >
           
           <Option value="Personal">Personal</Option>
-          <Option value="Office">Office</Option>
+          <Option value="Office">Officee</Option>
        
         </Select>
         </Form.Item>
