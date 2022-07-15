@@ -139,7 +139,7 @@ const App: FC = () => {
       <Input
       
           type="text"
-          placeholder="Basic usage"
+          placeholder="Enter your Task"
           name="task"
           value={task}
           onChange={handleChange} />
